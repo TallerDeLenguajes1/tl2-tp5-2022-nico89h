@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<tl2_tp5_2022_nico89h.ViewModels.PedidosView>
 
 @{
-    ViewData["Title"] = "listadoPedidos";
+    ViewData["Title"] = "listadoPedidosTotal";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>listadoPedidos</h1>
+<h1>listadoPedidosTotal</h1>
 
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -42,8 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Idcadete1)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id1})  |
-                @Html.ActionLink("Delete", "borrarPedido", new { id=item.Id1  })
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             </td>
         </tr>
 }

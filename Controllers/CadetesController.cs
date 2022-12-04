@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using tl2_tp4_2022_nico89h.Models;
+//using tl2_tp4_2022_nico89h.Models;
 using tl2_tp5_2022_nico89h.ViewModels;
 
 namespace tl2_tp4_2022_nico89h.Controllers
@@ -10,6 +10,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
     public class CadetesController : Controller
     {
         public static ICollection<CadetesView> _cadetes = new List<CadetesView>();
+        public static ICollection<PedidosView> _pedidos = new List<PedidosView>();
         // GET: CadetesController
         public IActionResult Index()
         {
@@ -49,25 +50,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
             }
         }
 
-        // GET: CadetesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-        // POST: CadetesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         // GET: CadetesController/Delete/5
         public IActionResult Delete(int id)
@@ -127,6 +110,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
                     {
                         item.Pedidos = new List<PedidosView>();
                     }
+                    _pedidos.Add(pedidoAgregar);
                     item.agregarPedido(pedidoAgregar);
                     return RedirectToAction(nameof(Index));
                 }
@@ -170,6 +154,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
                 {
                     if (pedidoRecorre.Id1 == id)
                     {
+                        _pedidos.Remove(pedidoRecorre);
                         item.Pedidos.Remove(pedidoRecorre);
                         return RedirectToAction(nameof(Index));
                     }
@@ -177,8 +162,89 @@ namespace tl2_tp4_2022_nico89h.Controllers
             }
             return View();
         }
-    
-    
+        //listadoTotal de pedidos
+        public IActionResult listadoPedidosTotal()
+        {
+            return View(_pedidos);
+        }
+        // GET: CadetesController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            foreach (var item in _pedidos)
+            {
+                return View(item);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        // POST: CadetesController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                bool existe = false;
+                foreach (var item in _cadetes)
+                {
+                    if (Int32.Parse(collection["Idcadete1"])==item.Id1)
+                    {
+                        existe = true;
+                        break;
+                    }
+                }
+                if (existe)
+                {
+                    bool cambio = false;
+                    //elimino el pedido de su cadete anterior
+                    foreach (var item in _cadetes)
+                    {
+                        foreach (var itemDos in item.Pedidos)
+                        {
+                            if (Int32.Parse(collection["Id1"])==itemDos.Id1)
+                            {
+                                item.Pedidos.Remove(itemDos);
+                                cambio = true;
+                                break;
+                            }
+                        }
+                        if (cambio)
+                        {
+                            break;
+                        }
+                    }
+                    foreach (var item in _cadetes)
+                    {
+
+                        if (Int32.Parse(collection["IdCadete1"])==item.Id1)
+                        {
+                            foreach (var pedido in _pedidos)
+                            {
+                                if (Int32.Parse(collection["Id1"]) == pedido.Id1)
+                                {
+                                    item.agregarPedido(pedido);
+                                    
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        
     }
     
 }

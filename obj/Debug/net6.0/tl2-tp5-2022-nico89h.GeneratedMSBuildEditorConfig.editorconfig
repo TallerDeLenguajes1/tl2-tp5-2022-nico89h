@@ -27,12 +27,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkZXRlc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/user/source/repos/TallerDeLenguajes1/tl2-tp5-2022-nico89h/Views/Cadetes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkZXRlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/user/source/repos/TallerDeLenguajes1/tl2-tp5-2022-nico89h/Views/Cadetes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkZXRlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/source/repos/TallerDeLenguajes1/tl2-tp5-2022-nico89h/Views/Cadetes/listadoPedidos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkZXRlc1xsaXN0YWRvUGVkaWRvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/source/repos/TallerDeLenguajes1/tl2-tp5-2022-nico89h/Views/Cadetes/listadoPedidosTotal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkZXRlc1xsaXN0YWRvUGVkaWRvc1RvdGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/source/repos/TallerDeLenguajes1/tl2-tp5-2022-nico89h/Views/Cadetes/PedidosAgregar.cshtml]

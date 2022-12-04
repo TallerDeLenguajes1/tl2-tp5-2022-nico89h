@@ -1,0 +1,44 @@
+﻿@model tl2_tp5_2022_nico89h.ViewModels.PedidosView
+
+@{
+    ViewData["Title"] = "borrarPedido";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>borrarPedido</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PedidosView</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Idcadete1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Idcadete1)
+        </dd>
+    </dl>
+    <form asp-action="borrarPedido">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

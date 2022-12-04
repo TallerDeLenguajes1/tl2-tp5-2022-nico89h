@@ -1,0 +1,54 @@
+﻿@model IEnumerable<tl2_tp5_2022_nico89h.ViewModels.CadetesView>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Alta cadete</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nombre
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@if(Model.Any()){
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @if(item.Pedidos.Count>0){
+                            @Html.ActionLink("Pedidos", "listadoPedidos", new { id=item.Id1})
+                }
+                
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id1})
+                @Html.ActionLink("AgregarPedido", "PedidosAgregar", new { id=item.Id1})
+            </td>
+            
+            
+        </tr>
+    }
+    
+}else{
+    <p>No hay datos</p>   
+}
+
+    </tbody>
+</table>

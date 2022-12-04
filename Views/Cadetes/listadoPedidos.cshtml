@@ -1,0 +1,52 @@
+﻿@model IEnumerable<tl2_tp5_2022_nico89h.ViewModels.PedidosView>
+
+@{
+    ViewData["Title"] = "listadoPedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>listadoPedidos</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idcadete1)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Idcadete1)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "borrarPedido", new { id=item.Id1  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

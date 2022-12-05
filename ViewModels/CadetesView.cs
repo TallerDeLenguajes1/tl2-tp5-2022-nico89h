@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using tl2_tp4_2022_nico89h.Models;
+using tl2_tp5_2022_nico89h.Models;
 
 namespace tl2_tp5_2022_nico89h.ViewModels
 {
     public class CadetesView
     {
         //inico de el view model
-        private static int IdCantidad = 0;
+        //private static int IdCantidad = 0;
         [Key]
         private int Id;
         [MaxLength(50)]
@@ -22,19 +22,18 @@ namespace tl2_tp5_2022_nico89h.ViewModels
         [DisplayName("Pedidos")]
         public ICollection<PedidosView>? Pedidos { get => pedidos; set => pedidos = value; }
         [DisplayName("Identi")]
-        public int Id1 { get => Id;}
+        public int Id1 { get => Id;set=> Id=value}
 
         public CadetesView()
         {
-            IdCantidad++;
-            this.Id = IdCantidad;
+            //IdCantidad++;
+            this.Id = 999;
             this.Nombre = "";
             this.Pedidos = new List<PedidosView>();
         }
-        public CadetesView(string nombre)
+        public CadetesView(string nombre, int id)
         {
-            IdCantidad++;
-            this.Id = IdCantidad;
+            this.Id = id;
             this.Nombre = nombre;
             this.Pedidos = new List<PedidosView>();
         }

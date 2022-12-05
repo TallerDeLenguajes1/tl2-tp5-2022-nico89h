@@ -1,21 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-//using tl2_tp4_2022_nico89h.Models;
+using tl2_tp5_2022_nico89h.Models;
 using tl2_tp5_2022_nico89h.ViewModels;
 
-namespace tl2_tp4_2022_nico89h.Controllers
+namespace tl2_tp5_2022_nico89h.Controllers
 {
     public class CadetesController : Controller
     {
-        public static ICollection<CadetesView> _cadetes = new List<CadetesView>();
-        public static ICollection<PedidosView> _pedidos = new List<PedidosView>();
+        private readonly ILogger<CadetesController> _logger;
+        private readonly IMapper _mapper;
+
+        public CadetesController(ILogger<CadetesController> _loggerDos, IMapper _mapperDos)
+        {
+            _logger = _loggerDos;
+            _mapper = _mapperDos;
+
+        }
+        public static ICollection<Cadetes> _cadetes = new List<Cadetes>();
+        public static ICollection<Pedidos> _pedidos = new List<Pedidos>();
         // GET: CadetesController
         public IActionResult Index()
         {
+            var cadetesView = _mapper.Map<List<CadetesView>>(_cadetes);
+            int i = 0;
+            foreach (var item in _cadetes)
+            {
+                cadetesView[i].Pedidos= _mapper.Map<List<PedidosView>>(item.Pedidos);
+                i++;
+            }
             //en el index se mostrara la info de los 
-            return View(_cadetes.ToList());
+            return View(cadetesView.ToList());
         }
 
         // GET: CadetesController/Details/5
@@ -28,7 +42,14 @@ namespace tl2_tp4_2022_nico89h.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            if (!_cadetes.Any())
+            {
+                return View(new CadetesView { Id1 = 0 });
+            }
+            else
+            {
+                return View(new CadetesView { Id1 = _cadetes.Count+1 });
+            }
         }
 
         // POST: CadetesController/Create
@@ -41,7 +62,10 @@ namespace tl2_tp4_2022_nico89h.Controllers
             {
                 //Cadetes cadete = new Cadetes(Nombre);
                 //Cadetes cadetes = new Cadetes(Nombre);
-                _cadetes.Add(cadete);
+                var pedidos = _mapper.Map<List<Pedidos>>(cadete.Pedidos);
+                var cadeteAux = _mapper.Map<Cadetes>(cadete);
+                cadeteAux.Pedidos = pedidos;
+                _cadetes.Add(cadeteAux);
                 return RedirectToAction("Index");
             }
             else
@@ -50,7 +74,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
             }
         }
 
-        
+
 
         // GET: CadetesController/Delete/5
         public IActionResult Delete(int id)
@@ -93,9 +117,18 @@ namespace tl2_tp4_2022_nico89h.Controllers
         [HttpGet]
         public IActionResult PedidosAgregar(int id)
         {
-            PedidosView pedido = new PedidosView();
-            pedido.Idcadete1 = id;
-            return View(pedido);
+            int idaux=0;
+            foreach (var item in _cadetes)
+            {
+                if (id==item.Id1)
+                {
+                    if (item.Pedidos.Any())
+                    {
+                        idaux = item.Pedidos.Count + 1;
+                    }
+                }
+            }
+            return View(new PedidosView { Id1=idaux,Idcadete1=id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -108,10 +141,11 @@ namespace tl2_tp4_2022_nico89h.Controllers
                 {
                     if (item.Pedidos == null)
                     {
-                        item.Pedidos = new List<PedidosView>();
+                        item.Pedidos = new List<Pedidos>();
                     }
-                    _pedidos.Add(pedidoAgregar);
-                    item.agregarPedido(pedidoAgregar);
+                    var pedidoAgregarDos = _mapper.Map<Pedidos>(pedidoAgregar);
+                    _pedidos.Add(pedidoAgregarDos);
+                    item.Pedidos.Add(pedidoAgregarDos);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -124,7 +158,8 @@ namespace tl2_tp4_2022_nico89h.Controllers
             {
                 if (item.Id1 == id)
                 {
-                    return View(item.Pedidos.ToList());
+                    var aux = _mapper.Map<List<PedidosView>>(item.Pedidos);
+                    return View(aux.ToList());
                 }
             }
             return RedirectToAction(nameof(Index));
@@ -138,6 +173,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
                 {
                     if (pedido.Id1 == id)
                     {
+                        var pedidoCambio = _mapper.Map<PedidosView>(pedido);
                         return View(pedido);
                     }
                 }
@@ -146,7 +182,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult borrarPedido(int id,IFormCollection collection)
+        public IActionResult borrarPedido(int id, IFormCollection collection)
         {
             foreach (var item in _cadetes)
             {
@@ -165,14 +201,19 @@ namespace tl2_tp4_2022_nico89h.Controllers
         //listadoTotal de pedidos
         public IActionResult listadoPedidosTotal()
         {
-            return View(_pedidos);
+            var pedidosView = _mapper.Map<List<PedidosView>>(_pedidos);
+            return View(pedidosView);
         }
         // GET: CadetesController/Edit/5
         public ActionResult Edit(int id)
         {
             foreach (var item in _pedidos)
             {
-                return View(item);
+                if (item.Id1 == id)
+                {
+                    var aux = _mapper.Map<PedidosView>(item);
+                    return View(aux);
+                }
             }
             return RedirectToAction(nameof(Index));
         }
@@ -186,7 +227,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
                 bool existe = false;
                 foreach (var item in _cadetes)
                 {
-                    if (Int32.Parse(collection["Idcadete1"])==item.Id1)
+                    if (Int32.Parse(collection["Idcadete1"]) == item.Id1)
                     {
                         existe = true;
                         break;
@@ -200,7 +241,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
                     {
                         foreach (var itemDos in item.Pedidos)
                         {
-                            if (Int32.Parse(collection["Id1"])==itemDos.Id1)
+                            if (Int32.Parse(collection["Id1"]) == itemDos.Id1)
                             {
                                 item.Pedidos.Remove(itemDos);
                                 cambio = true;
@@ -215,20 +256,20 @@ namespace tl2_tp4_2022_nico89h.Controllers
                     foreach (var item in _cadetes)
                     {
 
-                        if (Int32.Parse(collection["IdCadete1"])==item.Id1)
+                        if (Int32.Parse(collection["IdCadete1"]) == item.Id1)
                         {
                             foreach (var pedido in _pedidos)
                             {
                                 if (Int32.Parse(collection["Id1"]) == pedido.Id1)
                                 {
-                                    item.agregarPedido(pedido);
-                                    
+
+                                    item.Pedidos.Add(pedido);
                                     break;
                                 }
                             }
                             break;
                         }
-                        
+
                     }
 
                     return RedirectToAction("Index");
@@ -244,7 +285,7 @@ namespace tl2_tp4_2022_nico89h.Controllers
                 return View();
             }
         }
-        
+
     }
-    
+
 }

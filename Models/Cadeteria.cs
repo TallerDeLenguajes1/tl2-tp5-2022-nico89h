@@ -1,4 +1,4 @@
-﻿namespace tl2_tp4_2022_nico89h.Models
+﻿namespace tl2_tp5_2022_nico89h.Models
 {
     public class Cadeteria
     {

@@ -28,7 +28,7 @@ namespace tl2_tp5_2022_nico89h.ViewModels
         [DisplayName("Nombre")]
         public string? Nombre { get => nombre; set => nombre = value; }
         [DisplayName("Identificador")]
-        public int Id1 { get => Id;set=>Id=value}
+        public int Id1 { get => Id; set => Id = value; }
         [DisplayName("Id cadete")]
         public int Idcadete1 { get => Idcadete; set => Idcadete = value; }
 

@@ -22,7 +22,7 @@ namespace tl2_tp5_2022_nico89h.ViewModels
         [DisplayName("Pedidos")]
         public ICollection<PedidosView>? Pedidos { get => pedidos; set => pedidos = value; }
         [DisplayName("Identi")]
-        public int Id1 { get => Id;set=> Id=value}
+        public int Id1 { get => Id; set => Id = value; }
 
         public CadetesView()
         {

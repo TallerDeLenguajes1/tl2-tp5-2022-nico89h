@@ -117,18 +117,11 @@ namespace tl2_tp5_2022_nico89h.Controllers
         [HttpGet]
         public IActionResult PedidosAgregar(int id)
         {
-            int idaux=0;
-            foreach (var item in _cadetes)
+            if (!_pedidos.Any())
             {
-                if (id==item.Id1)
-                {
-                    if (item.Pedidos.Any())
-                    {
-                        idaux = item.Pedidos.Count + 1;
-                    }
-                }
+                return View(new PedidosView { Id1 = 1, Idcadete1 = id });
             }
-            return View(new PedidosView { Id1=idaux,Idcadete1=id });
+            return View(new PedidosView { Id1=_pedidos.Count+1,Idcadete1=id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

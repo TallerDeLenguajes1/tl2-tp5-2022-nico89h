@@ -76,6 +76,7 @@ namespace tl2_tp5_2022_nico89h.Controllers
 
 
 
+
         // GET: CadetesController/Delete/5
         public IActionResult Delete(int id)
         {

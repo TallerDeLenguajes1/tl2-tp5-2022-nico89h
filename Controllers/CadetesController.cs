@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 using tl2_tp5_2022_nico89h.Models;
 using tl2_tp5_2022_nico89h.Repositories;
 using tl2_tp5_2022_nico89h.ViewModels;
@@ -8,6 +9,7 @@ namespace tl2_tp5_2022_nico89h.Controllers
 {
     public class CadetesController : Controller
     {
+        
         private readonly ILogger<CadetesController> _logger;
         private readonly IMapper _mapper;
         private readonly IRepository<Cadetes> _repositorio;

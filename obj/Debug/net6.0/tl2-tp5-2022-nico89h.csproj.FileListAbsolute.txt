@@ -241,3 +241,5 @@ C:\Users\user\source\repos\TallerDeLenguajes1\tl2-tp5-2022-nico89h\bin\Debug\net
 C:\Users\user\source\repos\TallerDeLenguajes1\tl2-tp5-2022-nico89h\obj\Debug\net6.0\tl2-tp5-2022-nico89h.csproj.CopyComplete
 C:\Users\user\source\repos\TallerDeLenguajes1\tl2-tp5-2022-nico89h\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\user\source\repos\TallerDeLenguajes1\tl2-tp5-2022-nico89h\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\user\source\repos\TallerDeLenguajes1\tl2-tp5-2022-nico89h\bin\Debug\net6.0\Microsoft.Data.Sqlite.dll
+C:\Users\user\source\repos\TallerDeLenguajes1\tl2-tp5-2022-nico89h\bin\Debug\net6.0\SQLitePCLRaw.core.dll

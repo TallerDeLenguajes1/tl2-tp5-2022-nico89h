@@ -21,7 +21,7 @@ namespace tl2_tp5_2022_nico89h.Models
         [Required]
         private Tipo tipo;
         [ForeignKey("Cadetes")]
-        private int Idcadete;
+        private int? Idcadete;
 
         [DisplayName("Tipo de pedido")]
         public Tipo Tipo { get => tipo; set => tipo = value; }
@@ -30,7 +30,7 @@ namespace tl2_tp5_2022_nico89h.Models
         [DisplayName("Identificador")]
         public int Id1 { get => Id; set => Id = value; }
         [DisplayName("Id cadete")]
-        public int Idcadete1 { get => Idcadete; set => Idcadete = value; }
+        public int? Idcadete1 { get => Idcadete; set => Idcadete = value; }
 
 
 

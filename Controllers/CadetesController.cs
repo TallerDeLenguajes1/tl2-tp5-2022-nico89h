@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp5_2022_nico89h.Models;
+using tl2_tp5_2022_nico89h.Repositories;
 using tl2_tp5_2022_nico89h.ViewModels;
 
 namespace tl2_tp5_2022_nico89h.Controllers
@@ -9,11 +10,14 @@ namespace tl2_tp5_2022_nico89h.Controllers
     {
         private readonly ILogger<CadetesController> _logger;
         private readonly IMapper _mapper;
+        private readonly IRepository<Cadetes> _repositorio;
 
-        public CadetesController(ILogger<CadetesController> _loggerDos, IMapper _mapperDos)
+
+        public CadetesController(ILogger<CadetesController> _loggerDos, IMapper _mapperDos, IRepository<Cadetes> repository)
         {
             _logger = _loggerDos;
             _mapper = _mapperDos;
+            _repositorio=repository;
 
         }
         public static ICollection<Cadetes> _cadetes = new List<Cadetes>();
@@ -21,7 +25,8 @@ namespace tl2_tp5_2022_nico89h.Controllers
         // GET: CadetesController
         public IActionResult Index()
         {
-            var cadetesView = _mapper.Map<List<CadetesView>>(_cadetes);
+            var resultado = _repositorio.GetAll();
+            var cadetesView = _mapper.Map<List<CadetesView>>(resultado);
             int i = 0;
             foreach (var item in _cadetes)
             {
@@ -44,11 +49,11 @@ namespace tl2_tp5_2022_nico89h.Controllers
         {
             if (!_cadetes.Any())
             {
-                return View(new CadetesView { Id1 = 0 });
+                return View(new CadetesView ());
             }
             else
             {
-                return View(new CadetesView { Id1 = _cadetes.Count+1 });
+                return View(new CadetesView ());
             }
         }
 
@@ -65,6 +70,7 @@ namespace tl2_tp5_2022_nico89h.Controllers
                 var pedidos = _mapper.Map<List<Pedidos>>(cadete.Pedidos);
                 var cadeteAux = _mapper.Map<Cadetes>(cadete);
                 cadeteAux.Pedidos = pedidos;
+                _repositorio.insertar(cadeteAux);
                 _cadetes.Add(cadeteAux);
                 return RedirectToAction("Index");
             }

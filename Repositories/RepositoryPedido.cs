@@ -44,7 +44,7 @@ namespace tl2_tp5_2022_nico89h.Repositories
             //return null;
         }
 
-        public override IEnumerable<Pedidos> GetAll(string nombre)
+        public override IEnumerable<Pedidos> GetAll()
         {
             //    throw new NotImplementedException
             const string consulta = "select * from Pedido";

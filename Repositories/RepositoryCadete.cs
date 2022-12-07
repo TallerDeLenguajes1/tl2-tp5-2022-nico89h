@@ -13,7 +13,7 @@ namespace tl2_tp5_2022_nico89h.Repositories
 
         public override Cadetes buscarPorId(int id)
         {
-            const string consulta = "select * from Cadete where id_cadete = @id";
+            const string consulta = "select * from Cadete where id_cadete = @id;";
 
             try
             {
@@ -44,7 +44,7 @@ namespace tl2_tp5_2022_nico89h.Repositories
             //return null;
         }
 
-        public override IEnumerable<Cadetes> GetAll(string nombre)
+        public override IEnumerable<Cadetes> GetAll()
         {
         //    throw new NotImplementedException
             const string consulta = "select * from Cadete";
@@ -75,6 +75,7 @@ namespace tl2_tp5_2022_nico89h.Repositories
             catch (Exception e)
             {
                 //Logger.Debug("Error al buscar todos los cadetes - {Error}", e.Message);
+                Console.WriteLine("Error en el coso");
                 return new List<Cadetes>();
             }
 
@@ -98,14 +99,14 @@ namespace tl2_tp5_2022_nico89h.Repositories
             catch (Exception e)
             {
                 //Logger.Debug("Error al insertar el cadete {Id} - {Error}", entidad.Id, e.Message);
-            
+                Console.WriteLine("Error en el coso");
             }
         }
 
         public override void actualizarEntidad(Cadetes dato)
         {
             const string consulta =
-                "update Cadete set nombre = @nombre where id_cadete = @id";
+                "update Cadete set nombre = @nombre where id_cadete = @id;";
             try
             {
                 using var conexion = new SqliteConnection(conexiondb);
@@ -126,7 +127,7 @@ namespace tl2_tp5_2022_nico89h.Repositories
         public override void eliminarEntidad(int id)
         {
             const string consulta =
-                "delete from Cadete where id_cadete = @id";
+                "delete from Cadete where id_cadete = @id;";
 
             try
             {

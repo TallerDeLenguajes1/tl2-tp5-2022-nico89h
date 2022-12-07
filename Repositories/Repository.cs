@@ -8,7 +8,7 @@ namespace tl2_tp5_2022_nico89h.Repositories
     public abstract class Repository<T> : IRepository<T>
     {
         public abstract void actualizarEntidad(T dato);
-        public  abstract IEnumerable<T> GetAll(string nombre);
+        public  abstract IEnumerable<T> GetAll();
         public abstract void insertar(T dato);
         public abstract T buscarPorId(int Id);
         public abstract void eliminarEntidad(int id);

@@ -1,13 +1,22 @@
+global using AutoMapper;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Data.Sqlite;
+global using System.Diagnostics;
+global using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.DependencyInjection;
 using tl2_tp5_2022_nico89h.Models;
 using tl2_tp5_2022_nico89h.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-
+Cadetes jose;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddTransient<IRepositorioCadetes, RepositoryCadete>();
-builder.Services.AddTransient<IRepositorioPedidos, RepositoryPedido>();
+builder.Services.AddTransient<IRepositorio<Cadetes>, RepositorioCadete>();
+builder.Services.AddTransient<IRepositorioPedido<Pedidos>, RepositorioPedido>();
+//builder.Services.AddTransient<IRepositorio<Clientes>, RepositorioCliente>();
+//builder.Services.AddTransient<IRepositorio<Cadetes>, RepositoryCadete>();
+//builder.Services.AddTransient<IRepositorio<Pedidos>, RepositoryPedido>();
 var app = builder.Build();
 
 

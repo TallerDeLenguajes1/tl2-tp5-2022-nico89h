@@ -7,6 +7,7 @@
         private int Id;
         private string? nombre;
         private ICollection<Pedidos>? pedidos;
+        private static int IdCadeteria = 0;
         public Cadetes()
         {
             this.Id = 999;

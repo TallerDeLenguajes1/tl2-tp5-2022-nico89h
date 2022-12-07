@@ -84,7 +84,8 @@ namespace tl2_tp5_2022_nico89h.Controllers
             {
                 if (item.Id1 == id)
                 {
-                    return View(item);
+                    var cadeteAux = _mapper.Map<CadetesView>(item);
+                    return View(cadeteAux);
                 }
             }
             return RedirectToAction(nameof(Index));
@@ -103,7 +104,15 @@ namespace tl2_tp5_2022_nico89h.Controllers
                 {
                     if (item.Id1 == id)
                     {
+                        if (item.Pedidos.Any())
+                        {
+                            foreach (var itemDos in item.Pedidos)
+                            {
+                                _pedidos.Remove(itemDos);
+                            }
+                        }
                         _cadetes.Remove(item);
+                        
                         return RedirectToAction(nameof(Index));
                     }
                 }
